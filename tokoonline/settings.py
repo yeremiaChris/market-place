@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'toko_app.apps.TokoAppConfig',
     'django.contrib.admin',
