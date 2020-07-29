@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'toko_app/css/daftar-barang.css' %}">
+    <title>daftar-barang</title>
+</head>
+
+<body>
+    <nav>
+        <div class="bar">
+            <a href="">
+                <img src="" alt="">
+                <h1>DAYAK</h1>
+            </a>
+
+            <form action="">
+                <input type="text" name="cari" placeholder="cari">
+                <button type="submit">cari</button>
+            </form>
+
+            <a href="">Login</a>
+        </div>
+    </nav>
+
+    <div class="container-nav">
+        <div class="cari">
+            <form action="">
+                <input type="text" name="cari" placeholder="cari barangku">
+                <button>cari</button>
+            </form>
+        </div>
+        <div class="menu">
+            <a href="{% url 'tambah-barang' %}">Tambah Barang</a>
+            <a href="">Hapus Banyak</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="urutan">
+            <button>&downarrow; &uparrow;</button>
+            <button>kategori &downarrow;</button>
+        </div>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Gambar</th>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Dilihat</th>
+                <th>Aksi</th>
+            </tr>
+            {% for b in barang %}
+                <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td><img src="{{ b.gambar.url }}" alt="" width="100px" height="100px"></td>
+                    <td>{{ b.nama_barang }}</td>
+                    <td>Rp {{ b.harga }}</td>
+                    <td>199x</td>
+                    <td><a href="{% url 'update-barang' b.id %}">edit</a> <a href="{% url 'delete-barang' b.id %}">delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

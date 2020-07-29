@@ -1,6 +1,7 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','tokoonline.settings')
 
+
 import django
 django.setup()
 

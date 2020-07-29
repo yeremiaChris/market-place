@@ -13,8 +13,8 @@
     <nav>
         <div class="bar">
             <a href="">
-                <img src="" alt="">
-                <a href="{% url 'index' %}">DAYAK</a>
+                <img src="{% static 'toko_app/img/logo.jpg' %}" alt="" width="40" height="40">
+                <h1>Dayak</h1>
             </a>
 
             <form action="">
@@ -25,12 +25,18 @@
             <a href="">Login</a>
         </div>
     </nav>
+    <div class="container-slide">
+        <div class="kiri slide satu">keren</div>
+        <div class="kiri slide dua">biasa aja</div>
+        <div class="kiri slide tiga">mantap</div>
+        <div class="kiri slide empat">kali</div>
+    </div>
+
     <div class="container">
         {% for b in barang %}
-            <div class="card">
+            <div class="card"> 
                 <a href="">
-                    <div class="gambar">
-                        <img src="{{ b.gambar.url }}" alt="" width="100%" height="100%">
+                    <div class="gambar" style="background-image: url('{{ b.gambar.url }}') ;">
                     </div>
                 </a>
                 <div class="keterangan-barang">
@@ -149,6 +155,25 @@
             </div>
         </div> -->
     </div>
+
+
+
+    <script>
+        let index = 0;
+        show();
+        function show(){
+            const slides = document.getElementsByClassName("slide")
+            for(let i = 0; i < slides.length; i++){
+                slides[i].style.display = "none";
+            }
+            index += 1;
+            if(index > slides.length){
+                index=1;
+            }
+            slides[index-1].style.display = "block";    
+            setTimeout(show,1500);
+        }
+    </script>
 </body>
 
 </html>

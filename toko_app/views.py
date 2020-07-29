@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 
-from .forms import BarangForm
+from .forms import BarangForm,UpdateBarang
 from django.forms import modelformset_factory
 from .models import Image,Barang
+
+
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -26,9 +29,31 @@ def tambah_barang(request):
                     gambar.save()
                 except Exception as e:
                     break       
-        return redirect('index')
+        return redirect('daftar-barang')
     else:
         form = BarangForm()
         formset = formset(queryset=Image.objects.none())
 
     return render(request,'toko_app/tambah_barang.html',{'form': form,'formset': formset})
+
+
+def daftar_barang(request):
+    barang = Barang.objects.all().order_by('-id')
+    return render(request,'toko_app/daftar.html',{'barang': barang})
+
+def update_barang(request,pk):
+    barang = get_object_or_404(Barang,id=pk)
+    form = UpdateBarang(request.POST or None, request.FILES or None,instance=barang)
+    if request.method == 'POST':
+        form = UpdateBarang(request.POST or None, request.FILES or None,instance=barang)
+        if form.is_valid():
+            form.save()
+        return redirect('daftar-barang')
+    return render(request,'toko_app/update.html',{'form': form})
+
+def delete_barang(request,pk):
+    barang = get_object_or_404(Barang,id=pk)
+    if request.method == 'POST':
+        barang.delete()
+        return redirect('daftar-barang')
+    return render(request,'toko_app/delete.html',{'form': barang})
