@@ -58,6 +58,7 @@ nav {
 	background-color: teal;
 	height: 80px;
 	display: flex;
+	position: relative;
 }
 .bar a:last-child{
 	border-radius: 5px;
@@ -76,11 +77,12 @@ nav {
 .bar form input {
 	width: 700px;
 	border: none;
-	height: 30px;
+	font-size: 20pt;
 }
 .bar form button {
-	font-size: 20px;
-	background-color: burlywood;
+	font-size: 20pt;
+	background-color: peru;
+	color: white;
 	border: none;
 }
 
@@ -107,6 +109,28 @@ nav a{
 	justify-content: space-between;
 	align-items: center;
 }
+
+
+.container-nav-alert {
+	width: 1210px;
+	position: absolute;
+	background-color: green;
+	color: white;
+	padding: 20px;
+	font-size: 20px;
+	margin:auto;
+	/* display: flex; */
+	/* display: none; */
+	top: 80px;
+	left: 350px;
+}
+.muncul {
+	display: flex;
+	top: -80px	;
+	justify-content: center;
+}
+
+
 .container-nav a:first-child{
 	background-color: teal;
 }
@@ -192,7 +216,7 @@ th,td {
 	.container table tr a{
 		display: inline-block;
 		margin-bottom: 10px;
-	}
+	} 
 
 	table tr th {
 		padding-right: 10px;

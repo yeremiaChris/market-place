@@ -26,7 +26,12 @@
         </div>
     </nav>
 
+    <div class="container-nav-alert muncul" onload="load()">
+        <h1>barangmu berhasil di tambahkan cuyy</h1>
+    </div>
+
     <div class="container-nav">
+        
         <div class="cari">
             <form action="">
                 <input type="text" name="cari" placeholder="cari barangku">
@@ -65,6 +70,17 @@
             {% endfor %}
         </table>
     </div>
+
+
+
+    <script>
+        const divMuncul = document.querySelector(".container-nav-alert");
+            divMuncul.classList.add("muncul");
+
+            setInterval(() => {
+                divMuncul.classList.remove("muncul");
+            }, 5000);
+    </script>
 </body>
 
 </html>

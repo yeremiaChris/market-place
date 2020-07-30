@@ -64,9 +64,13 @@ nav {
 	color: white;
 	padding: 5px;
 }
+.bar a img{
+	border-radius: 50%;
+	margin-right: 5px;
+}
 .bar {
 	display: flex;
-	width: 1200px;
+	width: 1300px;
 	margin: auto;
 	justify-content: space-between;
 }
@@ -76,12 +80,12 @@ nav {
 .bar form input {
 	width: 700px;
 	border: none;
-	height: 30px;
 	font-size: 20px;
 }
 .bar form button {
 	font-size: 20px;
-	background-color: burlywood;
+	color: white;
+	background-color: peru;
 	border: none;
 }
 
@@ -111,7 +115,6 @@ nav a{
 }
 
 .container-slide {
-	position: relative;
 	width: 1300px;
 	margin:auto;
 }
@@ -122,21 +125,66 @@ nav a{
 	animation-duration: 1s;
 }
 
-@keyframes effect {
+/* @keyframes effect {
 	from {
 		opacity: .5;
 	}
 	to {
 		opacity: 1;
 	}
-}
+} */
 
 
-.container-slide .kiri {
+.container-slide .kiri.satu {
 	width: 1300px;
 	background-image: linear-gradient(rgb(43, 189, 238),white);
 	height: 500px;
 }
+
+.container-slide .kiri.satu h1,.container-slide .kiri.satu p {
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: -50px;
+	color: white;
+	font-size: 30pt;
+	font-weight: bold;
+}
+.container-slide .kiri.dua h1,.container-slide .kiri.dua p {
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: -50px;
+	color: white;
+	font-size: 30pt;
+	font-weight: bold;
+}
+.container-slide .kiri.tiga h1,.container-slide .kiri.tiga p {
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: -50px;
+	color: white;
+	font-size: 30pt;
+	font-weight: bold;
+}
+.container-slide .kiri.empat h1,.container-slide .kiri.empat p {
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: -50px;
+	color: white;
+	font-size: 30pt;
+	font-weight: bold;
+}
+
+/* .container-slide div h1,p{
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: -50px;
+	color: white;
+	font-size: 30pt;
+	font-weight: bold;
+} */
+
+
+
 .container-slide .kiri.dua {
 	width: 1300px;
 	background-image: linear-gradient(rgb(42, 79, 243),white);
@@ -149,7 +197,7 @@ nav a{
 }
 .container-slide .kiri.empat {
 	width: 1300px;
-	background-image: linear-gradient(rgb(247, 77, 77),white);
+	background-image: linear-gradient(rgb(219, 77, 247),white);
 	height: 500px;
 }
 .card {
