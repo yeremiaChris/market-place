@@ -45,12 +45,12 @@
                 <img src="" alt="" width="100px" height="100px">
             </div> -->
             <div class="input-banyak">
-            <label for="foto">*Foto</label>
-                {{ form.gambar }}
-                {{ formset.management_form }}
-                {% for f in formset %}
-                {{ f.image }}
-                {% endfor %}
+                <label for="foto">*Foto</label>
+                    {{ form.gambar }}
+                    {{ formset.management_form }}
+                    {% for f in formset %}
+                    {{ f.image }}
+                    {% endfor %}
             </div>
             <div class="foto-banyak">
                 <label for="foto">++</label>
@@ -78,7 +78,7 @@
             </div>
 
             <button type="submit">tambah barang</button>
-            <a href="">Batal</a>
+            <a href="{% url 'daftar-barang' %}">Batal</a>
         </form>
     </div>
 
@@ -89,6 +89,31 @@
         $(document).ready(function () {
             $('.js-example-basic-single').select2();
         });
+    </script>
+
+    <script>
+        // ini untuk gambar yang pertama
+        const gambar = document.querySelector(".foto-banyak img");
+        const input = document.querySelector(".input-banyak input");
+        
+        function masuk(){
+            input.click();
+        }
+        // akhir gambar pertama
+
+        function preview(){
+            const gambar = document.querySelectorAll(".foto-banyak img");
+            const input = document.querySelectorAll(".input-banyak .sampul");
+
+
+            const fileSampul = new FileReader();
+            fileSampul.readAsDataURL(input[0].files[0]);
+
+            fileSampul.onload = function(e){
+                gambar[0].src = e.target.result;
+            }
+        }
+
     </script>
 </body>
 

@@ -12,7 +12,7 @@
 <body>
     <nav>
         <div class="bar">
-            <a href="">
+            <a href="{% url 'index' %}">
                 <img src="" alt="">
                 <h1>DAYAK</h1>
             </a>
@@ -26,9 +26,9 @@
         </div>
     </nav>
 
-    <div class="container-nav-alert muncul" onload="load()">
+    <!-- <div class="container-nav-alert muncul">
         <h1>barangmu berhasil di tambahkan cuyy</h1>
-    </div>
+    </div> -->
 
     <div class="container-nav">
         
@@ -73,14 +73,14 @@
 
 
 
-    <script>
+    <!-- <script>
         const divMuncul = document.querySelector(".container-nav-alert");
             divMuncul.classList.add("muncul");
 
             setInterval(() => {
                 divMuncul.classList.remove("muncul");
-            }, 5000);
-    </script>
+            }, 3000);
+    </script> -->
 </body>
 
 </html>

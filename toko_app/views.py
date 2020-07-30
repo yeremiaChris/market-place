@@ -4,6 +4,7 @@ from .forms import BarangForm,UpdateBarang
 from django.forms import modelformset_factory
 from .models import Image,Barang
 
+from django import forms
 
 from django.shortcuts import get_object_or_404
 
@@ -15,7 +16,9 @@ def index(request):
 
 def tambah_barang(request):
     form = BarangForm()
-    formset = modelformset_factory(Image,extra=3,fields=('image',))
+    formset = modelformset_factory(Image,extra=3,fields=('image',),widgets={
+        'image': forms.ClearableFileInput(attrs={'class': 'sampul'})  
+    })
     if request.method == 'POST':
         form = BarangForm(request.POST or None,request.FILES or None)
         formset = formset(request.POST or None,request.FILES or None) 

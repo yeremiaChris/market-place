@@ -111,24 +111,19 @@ nav a{
 }
 
 
-.container-nav-alert {
+/* .container-nav-alert {
 	width: 1210px;
-	position: absolute;
 	background-color: green;
 	color: white;
 	padding: 20px;
 	font-size: 20px;
-	margin:auto;
-	/* display: flex; */
-	/* display: none; */
-	top: 80px;
-	left: 350px;
-}
-.muncul {
+	margin: 20px auto;
+	display: none;
+} */
+/* .muncul {
 	display: flex;
-	top: -80px	;
 	justify-content: center;
-}
+} */
 
 
 .container-nav a:first-child{

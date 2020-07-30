@@ -135,6 +135,7 @@ nav a{
 .form .input-banyak {
 	display: grid;
 	grid-template-columns: 200px 200px 200px 200px 200px;
+	/* display: none; */
 }
 
 .form button {
