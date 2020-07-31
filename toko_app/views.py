@@ -17,7 +17,7 @@ def index(request):
 def tambah_barang(request):
     form = BarangForm()
     formset = modelformset_factory(Image,extra=3,fields=('image',),widgets={
-        'image': forms.ClearableFileInput(attrs={'class': 'sampul'})  
+        'image': forms.ClearableFileInput(attrs={'class': 'coba'})  
     })
     if request.method == 'POST':
         form = BarangForm(request.POST or None,request.FILES or None)
