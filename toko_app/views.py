@@ -8,6 +8,12 @@ from django import forms
 
 from django.shortcuts import get_object_or_404
 
+from django.contrib import messages
+from django.core.paginator import Paginator
+
+
+
+
 
 # Create your views here.
 def index(request):
@@ -20,7 +26,7 @@ def index(request):
 
 def tambah_barang(request):
     form = BarangForm()
-    formset = modelformset_factory(Image,extra=3,fields=('image',),widgets={
+    formset = modelformset_factory(Image,extra=4,fields=('image',),widgets={
         'image': forms.ClearableFileInput(attrs={'class': 'coba'})  
     })
     if request.method == 'POST':
@@ -29,13 +35,16 @@ def tambah_barang(request):
         if form.is_valid() and formset.is_valid():
             item = form.save(commit=False)
             item.save()
-
+            messages.success(request,'Barang berhasil di tambahkan ')
             for f in formset:
                 try:
                     gambar = Image(barang=item,image=f.cleaned_data['image'])
                     gambar.save()
+
+                    messages.success(request, 'Barang berhasil di tambahkan ')
                 except Exception as e:
                     break       
+            
         return redirect('daftar-barang')
     else:
         form = BarangForm()
@@ -46,7 +55,10 @@ def tambah_barang(request):
 
 def daftar_barang(request):
     barang = Barang.objects.all().order_by('-id')
-    return render(request,'toko_app/daftar.html',{'barang': barang})
+    paginator = Paginator(barang,5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'toko_app/daftar.html', {'barang': barang,'page_obj': page_obj})
 
 def update_barang(request,pk):
     barang = get_object_or_404(Barang,id=pk)

@@ -1,62 +1,66 @@
 {% extends 'toko_app/base.html' %}
 {% load static %}
 {% block content %}
-
 <div class="row mt-3">
     <div class="col-lg-12">
         <h1>Tambah barang</h1>
     </div>
-</div>
+</div> 
 <div class="row">
     <div class="col-lg-12">
-        <form class="mt-3">
-            <div class="form-group row" style="display: none;">
+        <form class="mt-3" method="POST" enctype="multipart/form-data" action="{% url 'tambah-barang' %}">
+            {% csrf_token %}
+            <div class="form-group row" >
                 <label for="gambar" class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col-sm-10 input-banyak">
-                    <input type="file">
-                    <input type="file" class="coba">
-                    <input type="file" class="coba">
-                    <input type="file" class="coba">
-                    <input type="file" class="coba">
+                    {{ form.gambar.errors }}
+                    {{ form.gambar }}
+                    {{ formset.management_form }}
+                    {% for forms in formset %}
+                        {{forms}}
+                        <!-- <input type="file" class="coba">
+                        <input type="file" class="coba">
+                        <input type="file" class="coba">
+                        <input type="file" class="coba"> -->
+                    {% endfor %}
                 </div>
             </div>
             <div class="form-group row ">
                 <label for="gambars" class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col-sm-10 foto-banyak">
                     <img src="{% static 'toko_app/img/index.png' %}" alt="" width="100px" height="100px">
-                    <img src="img/index.png" alt="" width="100px" height="100px" id="gambar">
-                    <img src="img/index.png" alt="" width="100px" height="100px" id="gambar">
-                    <img src="img/index.png" alt="" width="100px" height="100px" id="gambar">
-                    <img src="img/index.png" alt="" width="100px" height="100px" id="gambar">
+                    <img src="{% static 'toko_app/img/index.png' %}" alt="" width="100px" height="100px" id="gambar">
+                    <img src="{% static 'toko_app/img/index.png' %}" alt="" width="100px" height="100px" id="gambar">
+                    <img src="{% static 'toko_app/img/index.png' %}" alt="" width="100px" height="100px" id="gambar">
+                    <img src="{% static 'toko_app/img/index.png' %}" alt="" width="100px" height="100px" id="gambar">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nama">
+                    {{ form.nama_barang.errors }}
+                    {{ form.nama_barang }}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="harga" class="col-sm-2 col-form-label">Harga</label>
                 <div class="col-sm-10">
-                    <input type="number" name="harga" class="form-control" style="width: 25%;">
+                    {{ form.harga.errors }}
+                    {{ form.harga }}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="kategori" class="col-sm-2 col-form-label">Kategori</label>
                 <div class="col-sm-10">
-                    <select class="js-example-basic-single" name="kategori" style="width: 25%;">
-                        <option value="AL">Alabama</option>
-                        ...
-                        <option value="WY">Wyoming</option>
-                    </select>
+                    {{ form.kategori.errors }}
+                    {{ form.kategori }}
                 </div>
 
             </div>
             <div class="form-group row">
                 <label for="harga" class="col-sm-2 col-form-label">Deskripsi</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="10" name="deskripsi"></textarea>
+                    {{ form.deskripsi }}
                 </div>
             </div>
             <div class="form-group row">
@@ -78,5 +82,4 @@
         </div>
     </footer>
 </div>
-
 {% endblock content %}

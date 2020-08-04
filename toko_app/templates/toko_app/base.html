@@ -12,6 +12,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'toko_app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'toko_app/css/select2.min.css' %}">
     <title>Dayak</title>
 </head>
 
@@ -50,10 +51,17 @@
         </div>
     </nav>
     <!-- akhir navbar -->
-
+    
 
     <!-- slider -->
     <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success mt-3" role="alert" style="text-align: center;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         {% block content %}
 
         {% endblock %}
@@ -88,6 +96,9 @@
     <script src="{% static 'toko_app/js/bootstrap.min.js' %}"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script src="{% static 'toko_app/js/select2.min.js' %}"></script>
+    <script src="{% static 'toko_app/js/select.js' %}"></script>
+    <script src="{% static 'toko_app/js/tambah-barang.js' %}"></script>
 </body>
 
 </html>

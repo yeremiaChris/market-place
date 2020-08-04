@@ -7,10 +7,10 @@ class BarangForm(forms.ModelForm):
         model = Barang
         fields = ['gambar','nama_barang','harga','kategori','deskripsi']
         widgets = {
-
-            'gambar': forms.ClearableFileInput(attrs={'class': 'sampul','onchange':'preview()'}),
-            'kategori': forms.Select(attrs={'class': 'js-example-basic-single'}),
-            'deskripsi': forms.Textarea(attrs={'cols': '96','rows': '10'})
+            'nama_barang': forms.TextInput(attrs={'class': 'form-control'}),
+            'harga': forms.TextInput(attrs={'class': 'form-control', 'style': 'width: 25%;','type': 'number'}),
+            'kategori': forms.Select(attrs={'class': 'js-example-basic-single', 'style': 'width: 25%;'}),
+            'deskripsi': forms.Textarea(attrs={'class': 'form-control','rows': '10'})
         }
 
 

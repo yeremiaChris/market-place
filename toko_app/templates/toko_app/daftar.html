@@ -3,6 +3,8 @@
 
 {% block content %}
 
+
+
 <div class="row mt-3">
     <div class="col-md-6 col-lg">
         <div class="dropdown d-flex">
@@ -23,7 +25,7 @@
     </div>
     <div class="col-md-6 col-lg">
         <a href="" class="btn btn-danger float-right">Hapus Barang</a>
-        <a href="" class="btn btn-success float-right mr-2">Tambah Barang</a>
+        <a href="{% url 'tambah-barang' %}" class="btn btn-success float-right mr-2">Tambah Barang</a>
     </div>
 </div>
 
@@ -40,44 +42,63 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">
-                <form action="" class="form-inline">
-                    <input type="checkbox">
-                </form>
-            </th>
-            <td><img src="{% static 'toko_app/img/item3.jpeg' %}" alt="" class="img-thumbnail"></td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><a href="" class="btn btn-success">Update</a> <a href="" class="btn btn-danger">Hapus</a></td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-        </tr>
+        {% for brg in page_obj %}
+            <tr>
+                <th scope="row">
+                    <form action="" class="form-inline">
+                        <input type="checkbox">
+                    </form>
+                </th>
+                <td><img src="{{ brg.gambar.url }}" alt="" width="150px" height="150px"></td>
+                <td>{{ brg.nama_barang }}</td>
+                <td>Rp. {{ brg.harga }}</td>
+                <td>99x</td>
+                <td><a href="" class="btn btn-success">Update</a> <a href="" class="btn btn-danger">Hapus</a></td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
+
+<div class="text-center">
+    <a href="?page=1" class="btn btn-outline-info">Awal</a>
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info">&laquo;</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+            <a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">&raquo;</a>
+    {% endif %}
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Terakhir</a>
+</div>
+<!-- {% if page_obj.is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn btn-outline-info">first</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number  == num %}
+            <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">Lirst</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Last</a>
+    {% endif %}
+
+{% endif %} -->
+
+
 
 <footer class="d-flex justify-content-between mt-5 mb-5 ">
     <div>Copyright &copy; Dayak.com 2020. All rights reserved.</div>
@@ -87,5 +108,7 @@
         <a href="#">Bantuan</a>
     </div>
 </footer>
+
+
 
 {% endblock %}
