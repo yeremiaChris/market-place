@@ -11,8 +11,12 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
-    barang = Barang.objects.all()
-    return render(request,'toko_app/index.html',{'barang': barang})
+    barang = Barang.objects.filter(kategori='baju')
+    celana = Barang.objects.filter(kategori='celana')
+    musik = Barang.objects.filter(kategori='musik')
+    return render(request,'toko_app/index.html',{'baju': barang,'musik': musik,'celana': celana})
+
+
 
 def tambah_barang(request):
     form = BarangForm()

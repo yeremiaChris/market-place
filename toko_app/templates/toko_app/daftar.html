@@ -1,86 +1,91 @@
+{% extends 'toko_app/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'toko_app/css/daftar-barang.css' %}">
-    <title>daftar-barang</title>
-</head>
+{% block content %}
 
-<body>
-    <nav>
-        <div class="bar">
-            <a href="{% url 'index' %}">
-                <img src="" alt="">
-                <h1>DAYAK</h1>
-            </a>
-
-            <form action="">
-                <input type="text" name="cari" placeholder="cari">
-                <button type="submit">cari</button>
+<div class="row mt-3">
+    <div class="col-md-6 col-lg">
+        <div class="dropdown d-flex">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Urutkan
+            </button>
+            <form action="" class="d-flex ml-3">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-
-            <a href="">Login</a>
-        </div>
-    </nav>
-
-    <!-- <div class="container-nav-alert muncul">
-        <h1>barangmu berhasil di tambahkan cuyy</h1>
-    </div> -->
-
-    <div class="container-nav">
-        
-        <div class="cari">
-            <form action="">
-                <input type="text" name="cari" placeholder="cari barangku">
-                <button>cari</button>
-            </form>
-        </div>
-        <div class="menu">
-            <a href="{% url 'tambah-barang' %}">Tambah Barang</a>
-            <a href="">Hapus Banyak</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </div>
     </div>
-
-    <div class="container">
-        <div class="urutan">
-            <button>&downarrow; &uparrow;</button>
-            <button>kategori &downarrow;</button>
-        </div>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Gambar</th>
-                <th>Nama</th>
-                <th>Harga</th>
-                <th>Dilihat</th>
-                <th>Aksi</th>
-            </tr>
-            {% for b in barang %}
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td><img src="{{ b.gambar.url }}" alt="" width="100px" height="100px"></td>
-                    <td>{{ b.nama_barang }}</td>
-                    <td>Rp {{ b.harga }}</td>
-                    <td>199x</td>
-                    <td><a href="{% url 'update-barang' b.id %}">edit</a> <a href="{% url 'delete-barang' b.id %}">delete</a></td>
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="col-md-6 col-lg">
+        <a href="" class="btn btn-danger float-right">Hapus Barang</a>
+        <a href="" class="btn btn-success float-right mr-2">Tambah Barang</a>
     </div>
+</div>
 
+<!-- table barang -->
+<table class="table mt-2 table-hover ">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Nama barang</th>
+            <th scope="col">Harga</th>
+            <th scope="col">Dilihat</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">
+                <form action="" class="form-inline">
+                    <input type="checkbox">
+                </form>
+            </th>
+            <td><img src="{% static 'toko_app/img/item3.jpeg' %}" alt="" class="img-thumbnail"></td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+            <td><a href="" class="btn btn-success">Update</a> <a href="" class="btn btn-danger">Hapus</a></td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@fat</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>@twitter</td>
+            <td>@twitter</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>@twitter</td>
+            <td>@twitter</td>
+        </tr>
+    </tbody>
+</table>
 
+<footer class="d-flex justify-content-between mt-5 mb-5 ">
+    <div>Copyright &copy; Dayak.com 2020. All rights reserved.</div>
+    <div>
+        <a href="#">Tentang</a> &middot;
+        <a href="#">Kontak</a> &middot;
+        <a href="#">Bantuan</a>
+    </div>
+</footer>
 
-    <!-- <script>
-        const divMuncul = document.querySelector(".container-nav-alert");
-            divMuncul.classList.add("muncul");
-
-            setInterval(() => {
-                divMuncul.classList.remove("muncul");
-            }, 3000);
-    </script> -->
-</body>
-
-</html>
+{% endblock %}
