@@ -40,8 +40,6 @@ def tambah_barang(request):
                 try:
                     gambar = Image(barang=item,image=f.cleaned_data['image'])
                     gambar.save()
-
-                    messages.success(request, 'Barang berhasil di tambahkan ')
                 except Exception as e:
                     break       
             
@@ -62,13 +60,30 @@ def daftar_barang(request):
 
 def update_barang(request,pk):
     barang = get_object_or_404(Barang,id=pk)
-    form = UpdateBarang(request.POST or None, request.FILES or None,instance=barang)
+    form = UpdateBarang(instance=barang)
+    formset = modelformset_factory(Image, extra=4, fields=('image',), widgets={
+        'image': forms.ClearableFileInput(attrs={'class': 'coba'})
+    })
     if request.method == 'POST':
-        form = UpdateBarang(request.POST or None, request.FILES or None,instance=barang)
-        if form.is_valid():
-            form.save()
-        return redirect('daftar-barang')
-    return render(request,'toko_app/update.html',{'form': form})
+        form = UpdateBarang(request.POST,request.FILES,instance=barang)
+        formset = formset(request.POST or None, request.FILES or None)
+        if form.is_valid() and formset.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            print(formset.cleaned_data)
+
+            for f in formsetL:
+                if f.cleaned_data:
+                    if f.cleaned_data['id'] is None:
+                        gambar = Image(barang=item,image=f.cleaned_data['image'])
+                        gambar.save()
+
+
+            return redirect('daftar-barang')
+    else:
+        form = UpdateBarang(instance=barang)
+    return render(request,'toko_app/update.html',{'form': form,'formset': formset})
+
 
 def delete_barang(request,pk):
     barang = get_object_or_404(Barang,id=pk)

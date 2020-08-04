@@ -5,6 +5,10 @@ const input = document.querySelector(".input-banyak input");
 gambar.onclick = function () {
     input.click();
 }
+
+
+
+
 // akhir gambar pertama
 
 input.onchange = function () {
