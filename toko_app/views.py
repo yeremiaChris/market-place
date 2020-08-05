@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 
-from .forms import BarangForm,UpdateBarang
+from .forms import BarangForm,UpdateBarang,ImageForm
 from django.forms import modelformset_factory
 from .models import Image,Barang
 
@@ -61,33 +61,24 @@ def daftar_barang(request):
 def update_barang(request,pk):
     barang = get_object_or_404(Barang,id=pk)
     form = UpdateBarang(instance=barang)
-    formset = modelformset_factory(Image, extra=4, fields=('image',), widgets={
-        'image': forms.ClearableFileInput(attrs={'class': 'coba'})
-    })
+
     if request.method == 'POST':
         form = UpdateBarang(request.POST,request.FILES,instance=barang)
-        formset = formset(request.POST or None, request.FILES or None)
-        if form.is_valid() and formset.is_valid():
-            item = form.save(commit=False)
-            item.save()
-            print(formset.cleaned_data)
-
-            for f in formsetL:
-                if f.cleaned_data:
-                    if f.cleaned_data['id'] is None:
-                        gambar = Image(barang=item,image=f.cleaned_data['image'])
-                        gambar.save()
-
-
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Barang berhasil di update cuyy')
             return redirect('daftar-barang')
     else:
         form = UpdateBarang(instance=barang)
-    return render(request,'toko_app/update.html',{'form': form,'formset': formset})
+    return render(request,'toko_app/update.html',{'form': form})
+
+
+
 
 
 def delete_barang(request,pk):
-    barang = get_object_or_404(Barang,id=pk)
+    hapus = get_object_or_404(Barang,id=pk)
     if request.method == 'POST':
-        barang.delete()
+        hapus.delete()
+        messages.success(request,'Barang berhasil di hapus')
         return redirect('daftar-barang')
-    return render(request,'toko_app/delete.html',{'form': barang})

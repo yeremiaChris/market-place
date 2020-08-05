@@ -53,29 +53,18 @@
                 <td>{{ brg.nama_barang }}</td>
                 <td>Rp. {{ brg.harga }}</td>
                 <td>99x</td>
-                <td><a href="{% url 'update-barang' brg.id %}" class="btn btn-success">Update</a> <a href="" class="btn btn-danger">Hapus</a></td>
+                <td><a href="{% url 'update-barang' brg.id %}" class="btn btn-success">Update</a> 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="{{ brg.id }}">
+                        Launch demo modal
+                    </button>
+                   
+
             </tr>
         {% endfor %}
     </tbody>
 </table>
 
-<div class="text-center">
-    <a href="?page=1" class="btn btn-outline-info">Awal</a>
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info">&laquo;</a>
-    {% endif %}
-    {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-            <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
-        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
-            <a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">&raquo;</a>
-    {% endif %}
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Terakhir</a>
-</div>
+
 <!-- {% if page_obj.is_paginated %}
 
     {% if page_obj.has_previous %}
@@ -99,6 +88,40 @@
 {% endif %} -->
 
 
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<form action="" method="POST" class="formhapus">
+    {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+
+
+
+
+
 
 <footer class="d-flex justify-content-between mt-5 mb-5 ">
     <div>Copyright &copy; Dayak.com 2020. All rights reserved.</div>
@@ -109,6 +132,20 @@
     </div>
 </footer>
 
+<script>
+    const tombolhapus = document.querySelectorAll("tr button");
+    const formhapus = document.querySelector(".formhapus")
 
+
+
+    console.log(tombolhapus[3].dataset.id);
+
+    for (let i = 0; i < tombolhapus.length; i++) {
+        tombolhapus[i].onclick = function(e) {
+            formhapus.action = "delete-barang/" + tombolhapus[i].dataset.id + "/";
+        }
+        
+    }
+</script>
 
 {% endblock %}

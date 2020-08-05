@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Barang
+from .models import Barang,Image
 
 class BarangForm(forms.ModelForm):
     class Meta:
@@ -38,5 +38,8 @@ class UpdateBarang(forms.ModelForm):
         return barang
 
 
-
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = '__all__'
 

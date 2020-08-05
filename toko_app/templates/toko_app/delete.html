@@ -1,105 +1,153 @@
+{% extends 'toko_app/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'toko_app/css/update_barang.css' %}">
-    <link rel="stylesheet" href="{% static 'toko_app/css/select2.min.css' %}">
-    <title>tambah-barang</title>
-</head>
+{% block content %}
 
-<body>
-    <nav>
-        <div class="bar">
-            <a href="">
-                <img src="" alt="">
-                <a href="{% url 'index' %}">DAYAK</a>
-            </a>
 
-            <form action="">
-                <input type="text" name="cari" placeholder="cari">
-                <button type="submit">cari</button>
+
+<div class="row mt-3">
+    <div class="col-md-6 col-lg">
+        <div class="dropdown d-flex">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Urutkan
+            </button>
+            <form action="" class="d-flex ml-3">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-
-            <a href="">Login</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </div>
-    </nav>
+    </div>
+    <div class="col-md-6 col-lg">
+        <a href="" class="btn btn-danger float-right">Hapus Barang</a>
+        <a href="{% url 'tambah-barang' %}" class="btn btn-success float-right mr-2">Tambah Barang</a>
+    </div>
+</div>
+
+<!-- table barang -->
+<table class="table mt-2 table-hover ">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Nama barang</th>
+            <th scope="col">Harga</th>
+            <th scope="col">Dilihat</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for brg in page_obj %}
+        <tr>
+            <th scope="row">
+                <form action="" class="form-inline">
+                    <input type="checkbox">
+                </form>
+            </th>
+            <td><img src="{{ brg.gambar.url }}" alt="" width="150px" height="150px"></td>
+            <td>{{ brg.nama_barang }}</td>
+            <td>Rp. {{ brg.harga }}</td>
+            <td>99x</td>
+            <td><a href="{% url 'update-barang' brg.id %}" class="btn btn-success">Update</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModal">
+                    Launch demo modal
+                </button>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a href="?page=1" class="btn btn-outline-info">Awal</a>
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info">&laquo;</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+    <a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">&raquo;</a>
+    {% endif %}
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Terakhir</a>
+</div>
+<!-- {% if page_obj.is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn btn-outline-info">first</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number  == num %}
+            <a href="?page={{ num }}" class="btn btn-info">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info">Lirst</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Last</a>
+    {% endif %}
+
+{% endif %} -->
 
 
-    <div class="form">
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h1>Tambah barang</h1>
-            <!-- <div class="foto">
-                <label for="foto">*Foto</label>
-                {{ form.gambar }}
-                {{ formset.management_form }}
-                {% for f in formset %}
-                    {{ f.image }}
-                {% endfor %}
-            </div>
-            <div class="foto-banyak">
-                <label for="foto">++</label>
-                <img src="" alt="" width="100px" height="100px">
-            </div> -->
-            <div class="input-banyak">
-                <label for="foto">*Foto</label>
+<!-- Button trigger modal -->
 
-                <div style="display: none;">
-                    {{ form.gambar}}
+<!-- Modal -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <!-- {{ formset.management_form }}
-                {% for f in formset %}
-                {{ f.image }}
-                {% endfor %} -->
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-            <div class="foto-banyak">
-                <label for="foto">++</label>
-                <img src="{{ form.gambar.url }}" alt="" width="100px" height="100px" onclick="klik()">
-            </div>
-            <div class="nama">
-                <label for="foto">*Nama</label>
-                {{ form.nama_barang }}
-            </div>
-            <div class="harga">
-                <label for="harga">*Harga</label>
-                {{ form.harga }}
-            </div>
-            <div class="kategori">
-                <label for="kategori">*Kategori</label>
-                {{ form.kategori }}
-            </div>
-            <div class="deskripsi">
-                <label for="foto">*Deskripsi</label>
-                {{ form.deskripsi }}
-                <!-- <textarea name="" id="" cols="96" rows="10"></textarea> -->
-            </div>
-
-            <button type="submit">Hapus</button>
-            <a href="{% url 'daftar-barang' %}">Batal</a>
-        </form>
+        </div>
     </div>
 
 
-    <script src="{% static 'toko_app/js/jquery-3.5.1.min.js' %}"></script>
-    <script src="{% static 'toko_app/js/select2.min.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            $('.js-example-basic-single').select2();
-        });
-    </script>
-    <script>
-        const link = document.querySelector(".input-banyak a").href;
-        const img = document.querySelector(".foto-banyak img");
-        const img2 = document.querySelector(".foto-banyak img");
-        img.src = link;
-        const input = document.querySelector(".input-banyak input")
-        function klik() {
-            input.click();
-        }
-    </script>
-</body>
+</form>
 
-</html>
+
+
+
+
+
+
+
+<footer class="d-flex justify-content-between mt-5 mb-5 ">
+    <div>Copyright &copy; Dayak.com 2020. All rights reserved.</div>
+    <div>
+        <a href="#">Tentang</a> &middot;
+        <a href="#">Kontak</a> &middot;
+        <a href="#">Bantuan</a>
+    </div>
+</footer>
+
+
+
+{% endblock %}
