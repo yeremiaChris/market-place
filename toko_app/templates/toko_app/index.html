@@ -37,7 +37,7 @@
 
         <div class="col-6 col-lg-2 mb-3">
             <div class="card ">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'detail-barang' m.id %}" class="text-decoration-none">
                     <img src="{% static 'toko_app/img/sape.png' %}" class="card-img-top" alt="..." width="150px" height="150px">
                     <div class="card-body">
                         <h5 class="card-title text-dark">Sape asli kayu jati</h5>
@@ -60,10 +60,10 @@
     {% for b in baju %}
         <div class="col-6 col-lg-2 mb-3">
             <div class="card ">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'detail-barang' b.id %}" class="text-decoration-none">
                     <img src="{{ b.gambar.url }}" class="card-img-top" alt="..." width="150px" height="150px" > 
                     <div class="card-body">
-                        <h5 class="card-title text-dark">{{ b.nama }}</h5>
+                        <h5 class="card-title text-dark">{{ b.nama_barang }}</h5>
                         <p class="text-body text-dark">Rp. {{ b.harga }}</p>
                         <p class="text-success">Kalbar coba</p>
                     </div>
@@ -84,10 +84,10 @@
     {% for c in celana %}
         <div class="col-6 col-lg-2 mb-3">
             <div class="card ">
-                <a href="" class="text-decoration-none">
+                <a href="{% url 'detail-barang' c.id %}" class="text-decoration-none">
                     <img src="{{ c.gambar.url }}" class="card-img-top" alt="..." width="150px" height="150px">
                     <div class="card-body">
-                        <h5 class="card-title text-dark">{{ c.nama }}</h5>
+                        <h5 class="card-title text-dark">{{ c.nama_barang }}</h5>
                         <p class="text-body text-dark">Rp. {{ c.harga }}</p>
                         <p class="text-success">Kalbar coba</p>
                     </div>

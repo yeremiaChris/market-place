@@ -4,7 +4,7 @@ from django.db import models
 class Barang(models.Model):
     gambar = models.ImageField(upload_to='gambar')
     nama_barang = models.CharField(max_length=50)
-    harga = models.DecimalField(decimal_places=2,max_digits=8)
+    harga = models.DecimalField(max_digits=10,decimal_places=0)
     CATEGORY = [
         ('baju','baju'),
         ('celana','celana'),

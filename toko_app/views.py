@@ -82,3 +82,10 @@ def delete_barang(request,pk):
         hapus.delete()
         messages.success(request,'Barang berhasil di hapus')
         return redirect('daftar-barang')
+
+
+def detailBarang(request,pk):
+    detail = get_object_or_404(Barang,id=pk)
+    barang = Barang.objects.filter(kategori=f'{detail.kategori}')
+    print(barang)
+    return render(request,'toko_app/detail.html',{'barang': detail,'banyak': barang})
